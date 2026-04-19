@@ -61,15 +61,11 @@ jobs:
         sudo mount -o remount,size=2G /dev/shm
 
     # =========================
-    # 5. Run tests (STABLE MODE)
+    # 5. Run tests
     # =========================
-    - name: Run Robot Tests (Stable)
+    - name: Run Robot Tests
       run: |
-        pabot --processes 1 \
-          --outputdir results \
-          --variable BROWSER:chrome \
-          --variable CHROME_OPTIONS:"add_argument(--headless=new);add_argument(--no-sandbox);add_argument(--disable-dev-shm-usage);add_argument(--disable-gpu)" \
-          tests/
+        python3 -m robot --variable DB_ENV:dev variable BROWSER:chrome variable OPTIONS:"add_argument(--headless=new);add_argument(--no-sandbox);add_argument(--disable-dev-shm-usage)" tests/
 
     # =========================
     # 6. Upload report
