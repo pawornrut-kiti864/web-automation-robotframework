@@ -1,5 +1,4 @@
-name: QA Web Automation Pipeline (Stable)
-
+name: QA Web Automation Pipeline
 on:
   push:
     branches: [ develop, main ]
@@ -7,11 +6,11 @@ on:
     branches: [ develop ]
   workflow_dispatch:
   schedule:
-    - cron: "50 9 * * *"   # ทุกวัน 09:00 เวลาไทย
+    - cron: "0 17 * * *"
 
 jobs:
 
-  tests:
+  robot-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,7 +26,7 @@ jobs:
     # =========================
     # 2. Install dependencies
     # =========================
-    - name: Install Python dependencies
+    - name: Install Python libs
       run: |
         pip install --upgrade pip
         pip install robotframework
@@ -37,7 +36,7 @@ jobs:
     # =========================
     # 3. Install Chrome
     # =========================
-    - name: Install Chrome
+    - name: Install Google Chrome
       run: |
         sudo apt-get update
         wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -45,9 +44,9 @@ jobs:
         google-chrome --version
 
     # =========================
-    # 4. Fix Linux / Chrome CI crash
+    # 4. Fix Chrome CI crash root causes
     # =========================
-    - name: Install system dependencies
+    - name: Install required Linux libs
       run: |
         sudo apt-get install -y \
           libnss3 \
@@ -56,21 +55,25 @@ jobs:
           libatk-bridge2.0-0 \
           libgtk-3-0
 
-    - name: Fix /dev/shm for Chrome
+    - name: Fix shared memory
       run: |
         sudo mount -o remount,size=2G /dev/shm
 
     # =========================
     # 5. Run tests
     # =========================
-    - name: Run Robot Tests
+    - name: Run Robot Framework Tests (Stable)
       run: |
-        python3 -m robot --variable DB_ENV:dev --variable BROWSER:chrome tests/
+        pabot --processes 1 \
+          --outputdir results \
+          --variable BROWSER:chrome \
+          --variable CHROME_OPTIONS:"--headless=new --no-sandbox --disable-dev-shm-usage --disable-gpu --window-size=1920,1080" \
+          tests/
 
     # =========================
     # 6. Upload report
     # =========================
-    - name: Upload Report
+    - name: Upload Test Report
       uses: actions/upload-artifact@v4
       with:
         name: robot-report
