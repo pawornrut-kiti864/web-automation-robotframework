@@ -1,0 +1,33 @@
+# Robot Framework results
+log.html
+report.html
+output.xml
+
+# results folder
+results/
+
+# pabot
+pabot_results/
+.pabot/
+
+# logs
+*.log
+
+# temp files
+*.tmp
+
+# OS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# IDE
+.vscode/
+.idea/
+
+# others
+log.html
+report.html
+output.xml
