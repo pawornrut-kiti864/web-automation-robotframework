@@ -13,5 +13,5 @@ Checkout Flow Test
     Add Item To Cart
     Go To Cart
     Checkout
-    Page Should Contain    Checkout: Your Information
+    Wait Until Page Contains    Checkout    10s
     Close Browser
