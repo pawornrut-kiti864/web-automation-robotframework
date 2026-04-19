@@ -35,7 +35,7 @@ jobs:
         pip install robotframework-pabot
 
     # =========================
-    # 3. Install Chrome (stable)
+    # 3. Install Chrome
     # =========================
     - name: Install Chrome
       run: |
@@ -65,7 +65,7 @@ jobs:
     # =========================
     - name: Run Robot Tests
       run: |
-        python3 -m robot --variable DB_ENV:dev variable BROWSER:chrome variable OPTIONS:"add_argument(--headless=new);add_argument(--no-sandbox);add_argument(--disable-dev-shm-usage)" tests/
+        python3 -m robot --variable DB_ENV:dev --variable BROWSER:chrome tests/
 
     # =========================
     # 6. Upload report
