@@ -5,12 +5,8 @@ on:
     branches: [ develop, main ]
   pull_request:
     branches: [ develop ]
-
-  # ⏰ setting to run regression
   schedule:
-    - cron: "0 16 * * *"   #UTC+7
-
-  # ▶️ กด run เองได้
+    - cron: "0 16 * * *"
   workflow_dispatch:
     inputs:
       test_type:
@@ -25,7 +21,7 @@ on:
 jobs:
 
   smoke-tests:
-    if: github.event_name == 'push' || github.event_name == 'pull_request' || github.event.inputs.test_type == 'smoke'
+    if: github.event_name != 'schedule' || github.event.inputs.test_type == 'smoke'
     runs-on: ubuntu-latest
 
     steps:
@@ -33,7 +29,7 @@ jobs:
 
     - uses: actions/setup-python@v5
       with:
-        python-version: 3.14
+        python-version: 3.11
 
     - name: Install dependencies
       run: |
@@ -42,11 +38,25 @@ jobs:
         pip install robotframework-pabot
 
     - name: Install Chrome
-      uses: browser-actions/setup-chrome@v1
+      run: |
+        sudo apt-get update
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo apt install -y ./google-chrome-stable_current_amd64.deb
+        google-chrome --version
+
+    - name: Install Linux dependencies
+      run: |
+        sudo apt-get install -y \
+          libnss3 libgbm1 libasound2 \
+          libatk-bridge2.0-0 libgtk-3-0
 
     - name: Run Smoke Tests
       run: |
-        robot -i smoke --outputdir results tests/
+        pabot --processes 2 \
+              --outputdir results \
+              --variable BROWSER:chrome \
+              --variable OPTIONS:"--headless=new --no-sandbox --disable-dev-shm-usage" \
+              tests/
 
     - name: Upload Smoke Report
       uses: actions/upload-artifact@v4
@@ -73,11 +83,24 @@ jobs:
         pip install robotframework-pabot
 
     - name: Install Chrome
-      uses: browser-actions/setup-chrome@v1
+      run: |
+        sudo apt-get update
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo apt install -y ./google-chrome-stable_current_amd64.deb
+
+    - name: Install Linux dependencies
+      run: |
+        sudo apt-get install -y \
+          libnss3 libgbm1 libasound2 \
+          libatk-bridge2.0-0 libgtk-3-0
 
     - name: Run Regression Tests (Parallel)
       run: |
-        pabot --processes 3 --outputdir results tests/
+        pabot --processes 3 \
+              --outputdir results \
+              --variable BROWSER:chrome \
+              --variable OPTIONS:"--headless=new --no-sandbox --disable-dev-shm-usage" \
+              tests/
 
     - name: Upload Regression Report
       uses: actions/upload-artifact@v4
