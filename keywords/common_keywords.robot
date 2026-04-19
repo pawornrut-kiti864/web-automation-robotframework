@@ -39,6 +39,7 @@ Add Item To Cart
 
 Go To Cart
     Click Element    css=.shopping_cart_link
+    Sleep    3s
 
 Checkout
     Wait Until Element Is Visible    id=checkout    10s
