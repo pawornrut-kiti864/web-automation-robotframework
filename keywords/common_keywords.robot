@@ -18,7 +18,8 @@ Login With Multiple Users
 
 Open Browser To Login Page
     Open Browser    ${URL}    chrome
-    ...    options=add_argument("--headless=new");add_argument("--no-sandbox");add_argument("--disable-dev-shm-usage");add_argument("--disable-gpu");add_argument("--window-size=1920,1080")
+    ...    options=add_argument("--headless=new");add_argument("--no-sandbox");add_argument("--disable-dev-shm-usage");add_argument("--disable-gpu")
+    Set Window Size    1920    1080
 
 Input Username
     [Arguments]    ${username}
@@ -41,5 +42,6 @@ Go To Cart
     Click Element    css=.shopping_cart_link
 
 Checkout
-    Wait Until Element Is Visible    id=checkout    10s
-    Click Button    id=checkout
+    Wait Until Element Is Visible    id=checkout    30s
+    Scroll Element Into View    id=checkout
+    Click Element    id=checkout
