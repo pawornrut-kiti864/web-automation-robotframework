@@ -9,6 +9,7 @@ Checkout Flow Test
     Input Username    standard_user
     Input Password    secret_sauce
     Click Login
+    Wait Until Page Contains Element    id=inventory_container    10s
     Add Item To Cart
     Go To Cart
     Checkout

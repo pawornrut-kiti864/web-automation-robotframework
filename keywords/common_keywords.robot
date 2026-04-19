@@ -41,5 +41,5 @@ Go To Cart
     Click Element    css=.shopping_cart_link
 
 Checkout
-    Wait Until Page Contains Element    id=checkout     3s
+    Wait Until Element Is Visible    id=checkout    10s
     Click Button    id=checkout
