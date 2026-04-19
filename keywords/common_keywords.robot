@@ -17,8 +17,8 @@ Login With Multiple Users
     Close Browser
 
 Open Browser To Login Page
-    Open Browser    ${URL}    ${BROWSER}
-    Maximize Browser Window
+    Open Browser    ${URL}    chrome
+    ...    options=add_argument("--headless=new");add_argument("--no-sandbox");add_argument("--disable-dev-shm-usage");add_argument("--disable-gpu");add_argument("--window-size=1920,1080")
 
 Input Username
     [Arguments]    ${username}
