@@ -1,0 +1,55 @@
+name: Robot Framework Web Automation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ develop ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+
+    - name: Install dependencies
+      run: |
+        pip install robotframework
+        pip install robotframework-seleniumlibrary
+
+    - name: Install Chrome
+      run: |
+        sudo apt-get update
+        wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo apt install -y ./google-chrome-stable_current_amd64.deb
+
+    - name: Install Linux dependencies
+      run: |
+        sudo apt-get install -y \
+          libnss3 libgbm1 libasound2t64 \
+          libatk-bridge2.0-0 libgtk-3-0
+
+    - name: Fix /dev/shm
+      run: sudo mount -o remount,size=2G /dev/shm
+
+    - name: Run Robot Tests
+      run: |
+        python3 -m robot \
+          --outputdir results \
+          --variable BROWSER:chrome \
+          --variable OPTIONS:"--headless=new --no-sandbox --disable-dev-shm-usage" \
+          tests/
+
+    - name: Upload Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: robot-report
+        path: results/
