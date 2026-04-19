@@ -1,117 +1,81 @@
-name: QA Web Automation Pipeline
+name: QA Web Automation Pipeline (Stable)
 
 on:
   push:
     branches: [ develop, main ]
   pull_request:
     branches: [ develop ]
-  schedule:
-    - cron: "45 16 * * *"
   workflow_dispatch:
-    inputs:
-      test_type:
-        description: "Choose test type"
-        required: true
-        default: "smoke"
-        type: choice
-        options:
-          - smoke
-          - regression
+  schedule:
+    - cron: "50 9 * * *"   # ทุกวัน 09:00 เวลาไทย
 
 jobs:
 
-  smoke-tests:
-    if: github.event_name != 'schedule' || github.event.inputs.test_type == 'smoke'
+  tests:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
 
+    # =========================
+    # 1. Python setup
+    # =========================
     - uses: actions/setup-python@v5
       with:
         python-version: 3.11
 
-    - name: Install dependencies
+    # =========================
+    # 2. Install dependencies
+    # =========================
+    - name: Install Python dependencies
       run: |
+        pip install --upgrade pip
         pip install robotframework
         pip install robotframework-seleniumlibrary
         pip install robotframework-pabot
 
+    # =========================
+    # 3. Install Chrome (stable)
+    # =========================
     - name: Install Chrome
       run: |
         sudo apt-get update
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
         sudo apt install -y ./google-chrome-stable_current_amd64.deb
         google-chrome --version
 
-    - name: Install Linux dependencies
+    # =========================
+    # 4. Fix Linux / Chrome CI crash
+    # =========================
+    - name: Install system dependencies
       run: |
         sudo apt-get install -y \
-          libnss3 libgbm1 libasound2t64 \
-          libatk-bridge2.0-0 libgtk-3-0
+          libnss3 \
+          libgbm1 \
+          libasound2t64 \
+          libatk-bridge2.0-0 \
+          libgtk-3-0
 
-    - name: Fix Chrome shared memory
+    - name: Fix /dev/shm for Chrome
       run: |
         sudo mount -o remount,size=2G /dev/shm
 
-    - name: Run Smoke Tests
+    # =========================
+    # 5. Run tests (STABLE MODE)
+    # =========================
+    - name: Run Robot Tests (Stable)
       run: |
-        pabot --processes 2 \
+        pabot --processes 1 \
           --outputdir results \
           --variable BROWSER:chrome \
-          --variable OPTIONS:"add_argument(--headless=new);add_argument(--no-sandbox);add_argument(--disable-dev-shm-usage);add_argument(--disable-gpu)" \
+          --variable CHROME_OPTIONS:"add_argument(--headless=new);add_argument(--no-sandbox);add_argument(--disable-dev-shm-usage);add_argument(--disable-gpu)" \
           tests/
 
-    - name: Upload Smoke Report
+    # =========================
+    # 6. Upload report
+    # =========================
+    - name: Upload Report
       uses: actions/upload-artifact@v4
       with:
-        name: smoke-report
-        path: results/
-
-
-  regression-tests:
-    if: github.event_name == 'schedule' || github.event.inputs.test_type == 'regression'
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - uses: actions/setup-python@v5
-      with:
-        python-version: 3.11
-
-    - name: Install dependencies
-      run: |
-        pip install robotframework
-        pip install robotframework-seleniumlibrary
-        pip install robotframework-pabot
-
-    - name: Install Chrome
-      run: |
-        sudo apt-get update
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo apt install -y ./google-chrome-stable_current_amd64.deb
-
-    - name: Install Linux dependencies
-      run: |
-        sudo apt-get install -y \
-          libnss3 libgbm1 libasound2t64 \
-          libatk-bridge2.0-0 libgtk-3-0
-
-    - name: Fix Chrome shared memory
-      run: |
-        sudo mount -o remount,size=2G /dev/shm
-
-    - name: Run Regression Tests (Parallel)
-      run: |
-        pabot --processes 3 \
-          --outputdir results \
-          --variable BROWSER:chrome \
-          --variable OPTIONS:"add_argument(--headless=new);add_argument(--no-sandbox);add_argument(--disable-dev-shm-usage);add_argument(--disable-gpu)" \
-          tests/
-
-    - name: Upload Regression Report
-      uses: actions/upload-artifact@v4
-      with:
-        name: regression-report
+        name: robot-report
         path: results/
