@@ -1,0 +1,20 @@
+[INFO]    Initialized logging in results/pabot_results
+[INFO]    Robot Framework remote server at 127.0.0.1:8270 started.
+[DEBUG]   2026-04-19 15:53:25.357914 [PID:91174] [1] [ID:2] EXECUTING Tests.Login Test
+[DEBUG]   2026-04-19 15:53:25.359115 [PID:91175] [0] [ID:1] EXECUTING Tests.Checkout Test
+[DEBUG]   2026-04-19 15:53:25.360508 [PID:91176] [2] [ID:0] EXECUTING Tests.Cart Test
+[INFO]    2026-04-19 15:53:28.072346 [PID:91176] [2] [ID:0] PASSED Tests.Cart Test in 2.7 seconds
+[INFO]    2026-04-19 15:53:28.075418 [PID:91175] [0] [ID:1] PASSED Tests.Checkout Test in 2.7 seconds
+[INFO]    2026-04-19 15:53:29.317233 [PID:91174] [1] [ID:2] PASSED Tests.Login Test in 4.0 seconds
+[INFO]    3 tests, 3 passed, 0 failed, 0 skipped.
+[INFO]    ===================================================
+[INFO]    Output:  /Users/pawornrutkitika/automation/web-automation-robotframework/results/output.xml
+[INFO]    Log:     /Users/pawornrutkitika/automation/web-automation-robotframework/results/log.html
+[INFO]    Report:  /Users/pawornrutkitika/automation/web-automation-robotframework/results/report.html
+[DEBUG]   Finalizing Pabot execution...
+[DEBUG]   Stopping PabotLib process
+[INFO]    Robot Framework remote server at 127.0.0.1:8270 stopped.
+[DEBUG]   PabotLib process stopped
+[INFO]    Total testing: 9.40 seconds
+[INFO]    Elapsed time:  4.33 seconds
+[DEBUG]   Logs flushed successfully.

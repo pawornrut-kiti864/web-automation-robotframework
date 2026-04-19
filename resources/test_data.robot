@@ -1,0 +1,4 @@
+*** Variables ***
+@{VALID_USERS}    
+...    standard_user    secret_sauce
+...    problem_user     secret_sauce
