@@ -1,0 +1,16 @@
+--suite Tests.Cart Test
+--variable CALLER_ID:b2aae3e687ae4b4681b64e2ac67fd644
+--variable PABOTLIBURI:127.0.0.1:8270
+--variable PABOTEXECUTIONPOOLID:0
+--variable PABOTISLASTEXECUTIONINPOOL:0
+--variable PABOTNUMBEROFPROCESSES:10
+--variable PABOTQUEUEINDEX:0
+--variable PABOTLASTLEVEL:Tests.Cart Test
+--output output.xml
+--log NONE
+--report NONE
+--xunit NONE
+--outputdir ./pabot_results/0
+--consolecolors off
+--consolemarkers off
+tests/

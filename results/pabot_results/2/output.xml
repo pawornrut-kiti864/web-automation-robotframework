@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.1 (Python 3.14.3 on darwin)" generated="2026-04-19T15:53:25.454729" rpa="false" schemaversion="5">
+<suite id="s1" name="Tests" source="/Users/pawornrutkitika/automation/web-automation-robotframework/tests">
+<suite id="s1-s1" name="Login Test" source="/Users/pawornrutkitika/automation/web-automation-robotframework/tests/login_test.robot">
+<test id="s1-s1-t1" name="Login Test" line="9">
+<kw name="Login With Multiple Users" owner="common_keywords">
+<kw name="Open Browser To Login Page" owner="common_keywords">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-04-19T15:53:25.517626" level="INFO">Opening browser 'Chrome' to base url 'https://www.saucedemo.com'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-04-19T15:53:25.517517" elapsed="1.520571"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-04-19T15:53:27.038443" elapsed="0.357679"/>
+</kw>
+<status status="PASS" start="2026-04-19T15:53:25.517266" elapsed="1.879180"/>
+</kw>
+<kw name="Input Username" owner="common_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-04-19T15:53:27.399234" level="INFO">Typing text 'standard_user' into text field 'id=user-name'.</msg>
+<arg>${USERNAME_FIELD}</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-04-19T15:53:27.397637" elapsed="0.113178"/>
+</kw>
+<arg>${username}</arg>
+<status status="PASS" start="2026-04-19T15:53:27.397005" elapsed="0.118341"/>
+</kw>
+<kw name="Input Password" owner="common_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-04-19T15:53:27.517778" level="INFO">Typing text 'secret_sauce' into text field 'id=password'.</msg>
+<arg>${PASSWORD_FIELD}</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-04-19T15:53:27.517351" elapsed="0.039234"/>
+</kw>
+<arg>${password}</arg>
+<status status="PASS" start="2026-04-19T15:53:27.516098" elapsed="0.040555"/>
+</kw>
+<kw name="Click Login" owner="common_keywords">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-04-19T15:53:27.557004" level="INFO">Clicking button 'id=login-button'.</msg>
+<arg>${LOGIN_BTN}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-04-19T15:53:27.556894" elapsed="0.049659"/>
+</kw>
+<status status="PASS" start="2026-04-19T15:53:27.556760" elapsed="0.050203"/>
+</kw>
+<kw name="Verify Login Success" owner="common_keywords">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>css=.inventory_list</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-04-19T15:53:27.607569" elapsed="0.007166"/>
+</kw>
+<status status="PASS" start="2026-04-19T15:53:27.607126" elapsed="0.007791"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-04-19T15:53:27.615073" elapsed="0.083780"/>
+</kw>
+<arg>standard_user</arg>
+<arg>secret_sauce</arg>
+<status status="PASS" start="2026-04-19T15:53:25.517084" elapsed="2.182157"/>
+</kw>
+<kw name="Login With Multiple Users" owner="common_keywords">
+<kw name="Open Browser To Login Page" owner="common_keywords">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-04-19T15:53:27.700093" level="INFO">Opening browser 'Chrome' to base url 'https://www.saucedemo.com'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-04-19T15:53:27.699977" elapsed="0.922794"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-04-19T15:53:28.623051" elapsed="0.357296"/>
+</kw>
+<status status="PASS" start="2026-04-19T15:53:27.699865" elapsed="1.280604"/>
+</kw>
+<kw name="Input Username" owner="common_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-04-19T15:53:28.981116" level="INFO">Typing text 'problem_user' into text field 'id=user-name'.</msg>
+<arg>${USERNAME_FIELD}</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-04-19T15:53:28.980972" elapsed="0.058672"/>
+</kw>
+<arg>${username}</arg>
+<status status="PASS" start="2026-04-19T15:53:28.980752" elapsed="0.058963"/>
+</kw>
+<kw name="Input Password" owner="common_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-04-19T15:53:29.040014" level="INFO">Typing text 'secret_sauce' into text field 'id=password'.</msg>
+<arg>${PASSWORD_FIELD}</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-04-19T15:53:29.039927" elapsed="0.024769"/>
+</kw>
+<arg>${password}</arg>
+<status status="PASS" start="2026-04-19T15:53:29.039797" elapsed="0.024962"/>
+</kw>
+<kw name="Click Login" owner="common_keywords">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-04-19T15:53:29.065048" level="INFO">Clicking button 'id=login-button'.</msg>
+<arg>${LOGIN_BTN}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-04-19T15:53:29.064959" elapsed="0.028776"/>
+</kw>
+<status status="PASS" start="2026-04-19T15:53:29.064847" elapsed="0.028954"/>
+</kw>
+<kw name="Verify Login Success" owner="common_keywords">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>css=.inventory_list</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-04-19T15:53:29.094019" elapsed="0.003637"/>
+</kw>
+<status status="PASS" start="2026-04-19T15:53:29.093889" elapsed="0.003822"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-04-19T15:53:29.097769" elapsed="0.067899"/>
+</kw>
+<arg>problem_user</arg>
+<arg>secret_sauce</arg>
+<status status="PASS" start="2026-04-19T15:53:27.699588" elapsed="1.466140"/>
+</kw>
+<tag>e2e</tag>
+<tag>login</tag>
+<tag>smoke</tag>
+<tag>web</tag>
+<status status="PASS" start="2026-04-19T15:53:25.516796" elapsed="3.649018"/>
+</test>
+<status status="PASS" start="2026-04-19T15:53:25.466360" elapsed="3.699745"/>
+</suite>
+<status status="PASS" start="2026-04-19T15:53:25.455616" elapsed="3.710747"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">e2e</stat>
+<stat pass="1" fail="0" skip="0">login</stat>
+<stat pass="1" fail="0" skip="0">smoke</stat>
+<stat pass="1" fail="0" skip="0">web</stat>
+</tag>
+<suite>
+<stat name="Tests" id="s1" pass="1" fail="0" skip="0">Tests</stat>
+<stat name="Login Test" id="s1-s1" pass="1" fail="0" skip="0">Tests.Login Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

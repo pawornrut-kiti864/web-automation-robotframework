@@ -1,0 +1,16 @@
+--suite Tests.Checkout Test
+--variable CALLER_ID:34e35d22b9d3495da378ecd0fdd33e75
+--variable PABOTLIBURI:127.0.0.1:8270
+--variable PABOTEXECUTIONPOOLID:0
+--variable PABOTISLASTEXECUTIONINPOOL:0
+--variable PABOTNUMBEROFPROCESSES:3
+--variable PABOTQUEUEINDEX:1
+--variable PABOTLASTLEVEL:Tests.Checkout Test
+--outputdir results/pabot_results/1
+--output output.xml
+--log NONE
+--report NONE
+--xunit NONE
+--consolecolors off
+--consolemarkers off
+tests/

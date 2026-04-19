@@ -1,0 +1,86 @@
+name: QA Web Automation Pipeline
+
+on:
+  push:
+    branches: [ develop, main ]
+  pull_request:
+    branches: [ develop ]
+
+  # ⏰ setting to run regression
+  schedule:
+    - cron: "0 16 * * *"   #UTC+7
+
+  # ▶️ กด run เองได้
+  workflow_dispatch:
+    inputs:
+      test_type:
+        description: "Choose test type"
+        required: true
+        default: "smoke"
+        type: choice
+        options:
+          - smoke
+          - regression
+
+jobs:
+
+  smoke-tests:
+    if: github.event_name == 'push' || github.event_name == 'pull_request' || github.event.inputs.test_type == 'smoke'
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: 3.14
+
+    - name: Install dependencies
+      run: |
+        pip install robotframework
+        pip install robotframework-seleniumlibrary
+        pip install robotframework-pabot
+
+    - name: Install Chrome
+      uses: browser-actions/setup-chrome@v1
+
+    - name: Run Smoke Tests
+      run: |
+        robot -i smoke --outputdir results tests/
+
+    - name: Upload Smoke Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: smoke-report
+        path: results/
+
+
+  regression-tests:
+    if: github.event_name == 'schedule' || github.event.inputs.test_type == 'regression'
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+
+    - name: Install dependencies
+      run: |
+        pip install robotframework
+        pip install robotframework-seleniumlibrary
+        pip install robotframework-pabot
+
+    - name: Install Chrome
+      uses: browser-actions/setup-chrome@v1
+
+    - name: Run Regression Tests (Parallel)
+      run: |
+        pabot --processes 3 --outputdir results tests/
+
+    - name: Upload Regression Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: regression-report
+        path: results/

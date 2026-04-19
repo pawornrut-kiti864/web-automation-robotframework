@@ -1,0 +1,7 @@
+datasources:bab07dabf98ec3bfcdcbcbf901edc0373376b02f
+commandlineoptions:97d170e1550eee4afc0af065b78cda302a97674c
+suitesfrom:no-suites-from-option
+file:0cee3ece5ac7dc8be7aa9543924af878593c7ff6
+--suite Tests.Cart Test
+--suite Tests.Checkout Test
+--suite Tests.Login Test
