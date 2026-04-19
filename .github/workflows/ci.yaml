@@ -50,13 +50,17 @@ jobs:
           libnss3 libgbm1 libasound2t64 \
           libatk-bridge2.0-0 libgtk-3-0
 
+    - name: Fix Chrome shared memory
+      run: |
+        sudo mount -o remount,size=2G /dev/shm
+
     - name: Run Smoke Tests
       run: |
         pabot --processes 2 \
-              --outputdir results \
-              --variable BROWSER:chrome \
-              --variable OPTIONS:"--headless=new --no-sandbox --disable-dev-shm-usage" \
-              tests/
+          --outputdir results \
+          --variable BROWSER:chrome \
+          --variable OPTIONS:"add_argument(--headless=new);add_argument(--no-sandbox);add_argument(--disable-dev-shm-usage);add_argument(--disable-gpu)" \
+          tests/
 
     - name: Upload Smoke Report
       uses: actions/upload-artifact@v4
@@ -91,16 +95,20 @@ jobs:
     - name: Install Linux dependencies
       run: |
         sudo apt-get install -y \
-          libnss3 libgbm1 libasound2 \
+          libnss3 libgbm1 libasound2t64 \
           libatk-bridge2.0-0 libgtk-3-0
+
+    - name: Fix Chrome shared memory
+      run: |
+        sudo mount -o remount,size=2G /dev/shm
 
     - name: Run Regression Tests (Parallel)
       run: |
         pabot --processes 3 \
-              --outputdir results \
-              --variable BROWSER:chrome \
-              --variable OPTIONS:"--headless=new --no-sandbox --disable-dev-shm-usage" \
-              tests/
+          --outputdir results \
+          --variable BROWSER:chrome \
+          --variable OPTIONS:"add_argument(--headless=new);add_argument(--no-sandbox);add_argument(--disable-dev-shm-usage);add_argument(--disable-gpu)" \
+          tests/
 
     - name: Upload Regression Report
       uses: actions/upload-artifact@v4
